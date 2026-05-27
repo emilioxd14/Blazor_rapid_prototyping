@@ -1,0 +1,45 @@
+@page "/delete/{Id:int}"
+@using FH_Kufstein_Blazor_WebAppProject.Models
+@using FH_Kufstein_Blazor_WebAppProject.DataClients
+@inject ContainerDataClient Client
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<PageTitle>Delete Container</PageTitle>
+
+<div class="container mt-4">
+    <div class="card shadow border-danger" style="max-width: 500px; margin: 0 auto;">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title mb-0">Confirm Deletion</h3>
+        </div>
+        <div class="card-body">
+            <p>Are you sure you want to delete container <strong>@containerToDelete?.Name</strong>?</p>
+            <p class="text-muted small">This action cannot be undone.</p>
+            
+            <div class="d-flex justify-content-end gap-2">
+                <a href="/" class="btn btn-secondary">Cancel</a>
+                <button class="btn btn-danger" @onclick="Confirm">Delete Permanently</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private ContainerData? containerToDelete;
+
+    protected override void OnInitialized()
+    {
+        // Buscamos el contenedor por ID al cargar la página
+        containerToDelete = Client.GetContainers().FirstOrDefault(c => c.Id == Id);
+    }
+
+    private void Confirm()
+    {
+        if (containerToDelete != null)
+        {
+            Client.DeleteContainerData(containerToDelete.Id);
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}
