@@ -1,0 +1,25 @@
+@inherits LayoutComponentBase
+
+<div class="min-vh-100 text-light" style="background-color: #0b0f19;">
+    <nav class="navbar navbar-expand-lg navbar-dark border-bottom" style="background-color: #111827; border-color: rgba(255,255,255,0.08) !important;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i class="bi bi-radioactive text-warning me-2 fs-4"></i>
+                <span class="fw-bold text-uppercase tracking-wider">Nuclear Storage Admin</span>
+            </a>
+            <div class="navbar-nav ms-auto">
+                <NavLink class="nav-link text-secondary" href="" Match="NavLinkMatch.All">
+                    <i class="bi bi-speedometer2 me-1"></i> Dashboard
+                </NavLink>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-11">
+                @Body
+            </div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,102 @@
+@page "/editcontainerdata"
+@page "/editcontainerdata/{Id:int}"
+@using FH_Kufstein_Blazor_WebAppProject.Models
+@using FH_Kufstein_Blazor_WebAppProject.DataClients
+@inject NavigationManager NavigationManager
+@inject ContainerDataClient Client
+@rendermode InteractiveServer
+
+<PageTitle>@(Id.HasValue ? "Edit" : "Add") Container Data</PageTitle>
+
+<h3>@(Id.HasValue ? "Edit" : "Add") Container Data</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="@containerDetails" FormName="editContainer" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="alert alert-danger" />
+            
+            <div class="mb-3">
+                <label for="name" class="form-label">Container Name:</label>
+                <InputText id="name" @bind-Value="containerDetails.Name" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label for="containerType" class="form-label">Container Type:</label>
+                <InputText id="containerType" @bind-Value="containerDetails.ContainerType" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Container Location:</label>
+                <InputText id="location" @bind-Value="containerDetails.Location" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label for="capacity" class="form-label">Container Capacity:</label>
+                <InputNumber id="capacity" @bind-Value="containerDetails.Capacity" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label for="currentLevel" class="form-label">Current Container Level:</label>
+                <InputNumber id="currentLevel" @bind-Value="containerDetails.CurrentLevel" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label for="datetime" class="form-label">Date / Time:</label>
+                <InputDate id="datetime" @bind-Value="containerDetails.DateTime" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">@(Id.HasValue ? "Save Changes" : "Submit")</button>
+            <a href="/" class="btn btn-secondary ms-2" role="button">Cancel</a>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private ContainerData containerDetails { get; set; } = new()
+    {
+        Name = string.Empty,
+        Location = string.Empty,
+        ContainerType = string.Empty,
+        DateTime = DateTime.Now
+    };
+
+    protected override void OnInitialized()
+    {
+        if (Id.HasValue)
+        {
+            var container = Client.GetContainers().FirstOrDefault(c => c.Id == Id.Value);
+            if (container != null)
+            {
+                containerDetails = new ContainerData
+                {
+                    Id = container.Id,
+                    Name = container.Name,
+                    Location = container.Location,
+                    ContainerType = container.ContainerType,
+                    Capacity = container.Capacity,
+                    CurrentLevel = container.CurrentLevel,
+                    DateTime = container.DateTime,
+                    Measurements = container.Measurements
+                };
+            }
+        }
+    }
+
+    private void OnValidSubmit()
+    {
+        if (Id.HasValue)
+        {
+            Client.UpdateContainer(containerDetails);
+        }
+        else
+        {
+            Client.AddContainer(containerDetails);
+        }
+        NavigationManager.NavigateTo("/");
+    }
+}
