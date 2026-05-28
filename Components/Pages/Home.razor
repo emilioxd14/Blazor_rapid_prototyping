@@ -34,19 +34,19 @@
 
                 <RadzenDataGridColumn TItem="ContainerData" Property="Name" Title="Name" Width="140px">
                     <Template Context="container">
-                        <span class="fw-bold text-white">@container.Name</span>
+                        <span class="fw-bold">@container.Name</span>
                     </Template>
                 </RadzenDataGridColumn>
 
                 <RadzenDataGridColumn TItem="ContainerData" Property="DateTime" Title="Date / Time" Width="150px">
                     <Template Context="container">
-                        <span class="text-light">@container.DateTime.ToString("g")</span>
+                        <span>@container.DateTime.ToString("g")</span>
                     </Template>
                 </RadzenDataGridColumn>
 
                 <RadzenDataGridColumn TItem="ContainerData" Property="Location" Title="Location" Width="120px">
                     <Template Context="container">
-                        <span class="text-light"><i class="bi bi-geo-alt-fill text-danger me-1"></i>@container.Location</span>
+                        <span><i class="bi bi-geo-alt-fill text-danger me-1"></i>@container.Location</span>
                     </Template>
                 </RadzenDataGridColumn>
 
@@ -58,14 +58,14 @@
 
                 <RadzenDataGridColumn TItem="ContainerData" Property="Capacity" Title="Capacity (L)" Width="120px">
                     <Template Context="container">
-                        <span class="text-light">@container.Capacity.ToString("N0")</span>
+                        <span>@container.Capacity.ToString("N0")</span>
                     </Template>
                 </RadzenDataGridColumn>
 
                 <RadzenDataGridColumn TItem="ContainerData" Property="CurrentLevel" Title="Current Level (L)" Width="200px">
                     <Template Context="container">
                         <div class="d-flex align-items-center w-100">
-                            <span class="me-2 text-white">@container.CurrentLevel.ToString("N0")</span>
+                            <span class="me-2">@container.CurrentLevel.ToString("N0")</span>
                             @{
                                 var percentage = (container.CurrentLevel * 100) / container.Capacity;
                                 var progressColor = percentage > 80 ? "bg-danger" : percentage > 50 ? "bg-warning" : "bg-success";
@@ -84,7 +84,7 @@
                             <ul class="list-group list-group-flush small bg-transparent p-0 m-0 border-0">
                                 @foreach (var measurement in container.Measurements)
                                 {
-                                    <li class="list-group-item p-1 bg-transparent text-white border-0">
+                                    <li class="list-group-item p-1 bg-transparent border-0">
                                         <i class="bi bi-activity text-warning me-1"></i>@measurement
                                     </li>
                                 }
