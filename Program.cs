@@ -5,8 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-    // Registrar el cliente de datos para almacenamiento en memoria
+// Registrar el cliente de datos para almacenamiento en memoria
 builder.Services.AddSingleton<FH_Kufstein_Blazor_WebAppProject.DataClients.ContainerDataClient>();
+
+// Registrar los servicios de Radzen
+builder.Services.AddRadzenComponents();
 
 var app = builder.Build();
 
