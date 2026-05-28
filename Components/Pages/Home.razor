@@ -22,9 +22,9 @@
                         Data="@containers" 
                         TItem="ContainerData" 
                         SelectionMode="DataGridSelectionMode.Single"
-                        Style="background-color: transparent; border: none;"
                         Responsive="true"
-                        EmptyText="No nuclear units to show.">
+                        EmptyText="No nuclear units to show."
+                        class="custom-nuclear-grid">
             <Columns>
                 <RadzenDataGridColumn TItem="ContainerData" Property="Id" Title="Id" Width="70px" TextAlign="TextAlign.Center">
                     <Template Context="container">

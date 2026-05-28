@@ -1,0 +1,53 @@
+/* Home.razor.css */
+
+/* 1. Reset base y variables de color para el Grid */
+::deep .rz-datatable {
+    /* Fondo principal transparente para heredar el color de tu Card (#161d30) */
+    --rz-grid-background-color: transparent;
+    
+    /* Color de texto general */
+    --rz-text-color: #e2e8f0;
+    
+    /* Color de las líneas separadoras */
+    --rz-grid-cell-border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    /* Fondo de la cabecera */
+    --rz-grid-header-background-color: rgba(0, 0, 0, 0.4);
+    --rz-grid-header-color: #94a3b8;
+    
+    /* Color de fondo al pasar el cursor sobre una fila (Hover) */
+    --rz-grid-hover-background-color: rgba(59, 130, 246, 0.15);
+    --rz-grid-hover-color: #ffffff;
+
+    /* Paginación */
+    --rz-grid-stripe-background-color: transparent;
+}
+
+/* 2. Estilización específica de celdas y cabeceras */
+::deep .rz-datatable-header th {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+::deep .rz-grid-table td {
+    padding: 0.75rem 1rem;
+    transition: background-color 0.2s ease;
+}
+
+/* 3. Personalización del panel inferior (Paginador) */
+::deep .rz-paginator {
+    background-color: rgba(0,0,0,0.2);
+    border-top: var(--rz-grid-cell-border);
+    color: #94a3b8;
+}
+
+::deep .rz-paginator-element {
+    color: #cbd5e1;
+}
+
+::deep .rz-state-active.rz-paginator-element {
+    background-color: #3b82f6 !important;
+    color: white !important;
+}
